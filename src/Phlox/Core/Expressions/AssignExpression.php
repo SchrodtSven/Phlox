@@ -12,8 +12,16 @@ declare(strict_types=1);
  */
 
 namespace SchrodtSven\Phlox\Core\Expressions;
+use SchrodtSven\Phlox\Core\Token;
 
-abstract class Expression
+class AssignExpression extends Expression
 {
-	abstract public function accept($visitor); //@todo adding type hint for Visitor
+	public function __construct(private Token $name, private Expression $value)
+	{}
+
+	public function accept($visitor)
+	{
+		return $visitor->visitAssignExpr($this);
+	}
+
 }
