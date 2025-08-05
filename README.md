@@ -5,3 +5,9 @@ Re-implementing the [Lox language](https://www.craftinginterpreters.com/the-lox-
 
 
 ...tbc
+
+## Disclaimer 
+> [!WARNING]  
+> <b>Status: just started - it won't run w/o errors </b>
+
+I just started this little repo - if you are curious about it: look again in a few days
