@@ -45,4 +45,7 @@ To be honest: ```s/Mario/Luigi```
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠛⠛⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 
 ```⠀
-Hope Nintendo willl not accuse me - in that case I will not buy another console - I am still @LEVEL_SWITCH_GEN_TWO, not SWITCH_2!
+
+Hope Nintendo willl not accuse me - in that case I will not buy another console!
+
+I am still @LEVEL_SWITCH_GEN_TWO, not SWITCH_2!
