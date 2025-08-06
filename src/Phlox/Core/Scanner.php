@@ -213,7 +213,7 @@ class Scanner
 			$this->scanToken();
 		}
 
-		$this->tokens[] = new Token(TokenType::TKN_EOF, null, $this->line);
+		$this->tokens[] = new Token(null, TokenType::TKN_EOF,  $this->line);
 
 		return $this->tokens;
 	}
