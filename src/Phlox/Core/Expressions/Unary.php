@@ -12,9 +12,18 @@ declare(strict_types=1);
  */
 
 namespace SchrodtSven\Phlox\Core\Expressions;
+
+use SchrodtSven\Phlox\Core\Expressions\Expression;
+use SchrodtSven\Phlox\Core\Token;
 use SchrodtSven\Phlox\Visitor;
 
-abstract class Expression
+class Unary extends Expression
 {
-	abstract public function accept(Visitor $visitor); //@todo adding type hint for Visitor
+	public function __construct(private Token $operator, private Expression $right)
+	{}
+
+	public function accept(Visitor $visitor)
+	{
+		return $visitor->visitUnaryExpression($this);
+	}
 }

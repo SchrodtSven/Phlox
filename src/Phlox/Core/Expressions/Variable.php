@@ -12,16 +12,20 @@ declare(strict_types=1);
  */
 
 namespace SchrodtSven\Phlox\Core\Expressions;
+
+use SchrodtSven\Phlox\Core\Expressions\Expression;
 use SchrodtSven\Phlox\Core\Token;
+use SchrodtSven\Phlox\Visitor;
 
-class AssignExpression extends Expression
+class Variable extends Expression
 {
-	public function __construct(private Token $name, private Expression $value)
-	{}
-
-	public function accept($visitor)
+	public function __construct(private Token $name)
 	{
-		return $visitor->visitAssignExpr($this);
+		
 	}
 
+	public function accept(Visitor $visitor)
+	{
+		return $visitor->visitVariableExpression($this);
+	}
 }

@@ -13,19 +13,32 @@ declare(strict_types=1);
 
 
 namespace SchrodtSven\Phlox;
+use SchrodtSven\Phlox\Core\Expressions\Expression;
+use SchrodtSven\Phlox\Core\Expressions\Assign;
+use SchrodtSven\Phlox\Core\Expressions\Binary;
+use SchrodtSven\Phlox\Core\Expressions\Call;
+use SchrodtSven\Phlox\Core\Expressions\Get;
+use SchrodtSven\Phlox\Core\Expressions\Grouping;
+use SchrodtSven\Phlox\Core\Expressions\Super;
+use SchrodtSven\Phlox\Core\Expressions\Literal;
+use SchrodtSven\Phlox\Core\Expressions\Logical;
+use SchrodtSven\Phlox\Core\Expressions\Set;
+use SchrodtSven\Phlox\Core\Expressions\This;
+use SchrodtSven\Phlox\Core\Expressions\Unary;
+use SchrodtSven\Phlox\Core\Expressions\Variable;
 
 interface Visitor
 {
-	public function visitAssignExpression(AssignExpression $expr);
-	public function visitBinaryExpression(BinaryExpression $expr);
-	public function visitCallExpression(CallExpression $expr);
-	public function visitGetExpression(GetExpression $expr);
-	public function visitGroupingExpression(GroupingExpression $expr);
-	public function visitLiteralExpression(LiteralExpression $expr);
-	public function visitLogicalExpression(LogicalExpression $expr);
-	public function visitSetExpression(SetExpression $expr);
-	public function visitSuperExpression(SuperExpression $expr);
-	public function visitThisExpression(ThisExpression $expr);
-	public function visitUnaryExpression(UnaryExpression $expr);
-	public function visitVariableExpression(VariableExpression $expr);
+	public function visitAssignExpression(Assign $expr);
+	public function visitBinaryExpression(Binary $expr);
+	public function visitCallExpression(Call $expr);
+	public function visitGetExpression(Get $expr);
+	public function visitGroupingExpression(Grouping $expr);
+	public function visitLiteralExpression(Literal $expr);
+	public function visitLogicalExpression(Logical $expr);
+	public function visitSetExpression(Set $expr);
+	public function visitSuperExpression(Super $expr);
+	public function visitThisExpression(This $expr);
+	public function visitUnaryExpression(Unary $expr);
+	public function visitVariableExpression(Variable $expr);
 }
