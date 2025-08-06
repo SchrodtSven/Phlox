@@ -18,7 +18,7 @@ use SchrodtSven\Phlox\Visitor;
 
 class Super extends Expression
 {
-    public function __construct(Token $keyword, Token $method)
+    public function __construct(private Token $keyword, private Token $method)
 	{}
 
 	public function accept(Visitor $visitor)
