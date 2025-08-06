@@ -22,11 +22,11 @@ class ErrorReporter
     public static $hadError = false;
 	public static $hadRuntimeError = false;
 
-	public static function error($line_or_token, $message)
+	public static function error($lineOrTkn, $message)
 	{
-		if ($line_or_token instanceof Token)
+		if ($$lineOrTkn instanceof Token)
 		{
-			$token = $line_or_token;
+			$token = $lineOrTkn;
 			if ($token->getType() == TokenType::TKN_EOF)
 			{
 				self::report($token->getLine(), " at end", $message);
@@ -38,7 +38,7 @@ class ErrorReporter
 		}
 		else
 		{
-			$line = $line_or_token;
+			$line = $lineOrTkn;
 			self::report($line, '', $message);
 		}
 	}

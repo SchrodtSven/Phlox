@@ -48,4 +48,4 @@ To be honest: ```s/Mario/Luigi```
 
 Hope Nintendo willl not accuse me - in that case I will not buy another console!
 
-I am still @LEVEL_SWITCH_GEN_TWO, not SWITCH_2!
+I am still @LEVEL_SWITCH_GEN_TWO, not SWITCH_ and I omit N64 and WiiU
