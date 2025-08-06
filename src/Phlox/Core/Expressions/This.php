@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 /**
- * Abstract entity class for an expression
+ * This expression
  * 
  * @author Sven Schrodt<sven@schrodt.club>
  * @link https://github.com/SchrodtSven/Phlox

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 /**
- * Abstract entity class for an expression
+ * Binary expression
  * 
  * @author Sven Schrodt<sven@schrodt.club>
  * @link https://github.com/SchrodtSven/Phlox
@@ -17,7 +17,7 @@ use SchrodtSven\Phlox\Core\Expressions\Expression;
 use SchrodtSven\Phlox\Core\Token;
 use SchrodtSven\Phlox\Visitor;
 
-class BinaryExpression extends Expression
+class Binary extends Expression
 {
     public function __construct(private Expression $left, private Token $operator, private Expression $right) {}
 
