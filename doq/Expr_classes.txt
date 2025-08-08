@@ -1,19 +1,33 @@
-class SchrodtSven\Phlox\Core\Expressions\Expression {
+Express <|-- Variable
+Express <|-- Literal
+Express <|-- Get
+Express <|-- Logical
+Express <|-- Grouping
+Express <|-- Super
+Express <|-- Set
+Express <|-- Assign
+Express <|-- Unary
+Express <|-- Binary
+Express <|-- Call
+Express <|-- This
+
+
+class Expression {
 	 +accept()
 }
-class SchrodtSven\Phlox\Core\Expressions\Variable {
+class Variable {
 	 +name
 	 +__construct()
 	 +accept()
 }
-class SchrodtSven\Phlox\Core\Expressions\Literal {
+class Literal {
 	 +value
 	 +__construct()
 	 +accept()
 	 +getValue()
 	 +setValue()
 }
-class SchrodtSven\Phlox\Core\Expressions\Get {
+class Get {
 	 +object
 	 +name
 	 +__construct()
@@ -23,7 +37,7 @@ class SchrodtSven\Phlox\Core\Expressions\Get {
 	 +getName()
 	 +setName()
 }
-class SchrodtSven\Phlox\Core\Expressions\Logical {
+class Logical {
 	 +left
 	 +operator
 	 +right
@@ -36,14 +50,14 @@ class SchrodtSven\Phlox\Core\Expressions\Logical {
 	 +getRight()
 	 +setRight()
 }
-class SchrodtSven\Phlox\Core\Expressions\Grouping {
+class Grouping {
 	 +expression
 	 +__construct()
 	 +accept()
 	 +getExpression()
 	 +setExpression()
 }
-class SchrodtSven\Phlox\Core\Expressions\Super {
+class Super {
 	 +keyword
 	 +method
 	 +__construct()
@@ -53,14 +67,14 @@ class SchrodtSven\Phlox\Core\Expressions\Super {
 	 +getMethod()
 	 +setMethod()
 }
-class SchrodtSven\Phlox\Core\Expressions\Set {
+class Set {
 	 +object
 	 +name
 	 +value
 	 +__construct()
 	 +accept()
 }
-class SchrodtSven\Phlox\Core\Expressions\Assign {
+class Assign {
 	 +name
 	 +value
 	 +__construct()
@@ -70,13 +84,13 @@ class SchrodtSven\Phlox\Core\Expressions\Assign {
 	 +getValue()
 	 +setValue()
 }
-class SchrodtSven\Phlox\Core\Expressions\Unary {
+class Unary {
 	 +operator
 	 +right
 	 +__construct()
 	 +accept()
 }
-class SchrodtSven\Phlox\Core\Expressions\Binary {
+class Binary {
 	 +left
 	 +operator
 	 +right
@@ -89,7 +103,7 @@ class SchrodtSven\Phlox\Core\Expressions\Binary {
 	 +getRight()
 	 +setRight()
 }
-class SchrodtSven\Phlox\Core\Expressions\Call {
+class Call {
 	 +callee
 	 +parent
 	 +arguments
@@ -102,7 +116,7 @@ class SchrodtSven\Phlox\Core\Expressions\Call {
 	 +getArguments()
 	 +setArguments()
 }
-class SchrodtSven\Phlox\Core\Expressions\This {
+class This {
 	 +keyword
 	 +__construct()
 	 +accept()

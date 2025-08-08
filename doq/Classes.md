@@ -18,7 +18,7 @@ title: Classes
     Expression <|-- This
 
 
-        note "Sub namespace SchrodtSven\Phlox\Core\Statments\"
+        note "Sub namespace SchrodtSven\Phlox\Core\Expressions\"
 
     class Expression {
         +accept()

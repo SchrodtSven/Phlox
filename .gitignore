@@ -16,3 +16,4 @@ grube*
 .DS_Store
 legacy/
 foo*
+Intl/*

@@ -1,4 +1,15 @@
 
+Statements <|-- BlockStmt
+Statements <|-- FunctionStmt
+Statements <|-- ClassStmt
+Statements <|-- VarStmt
+Statements <|-- WhileStmt
+Statements <|-- Statement
+Statements <|-- PrintStmt
+Statements <|-- IfStmt
+Statements <|-- ExpressionStmt
+Statements <|-- ReturnStmt
+
 class ReturnStmt {
 	 +keyword
 	 +value
@@ -91,13 +102,3 @@ class ExpressionStmt {
 	 +setExpression()
 }
 
-Statements <|-- BlockStmt
-Statements <|-- FunctionStmt
-Statements <|-- ClassStmt
-Statements <|-- VarStmt
-Statements <|-- WhileStmt
-Statements <|-- Statement
-Statements <|-- PrintStmt
-Statements <|-- IfStmt
-Statements <|-- ExpressionStmt
-Statements <|-- ReturnStmt

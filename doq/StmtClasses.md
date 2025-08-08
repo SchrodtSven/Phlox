@@ -3,7 +3,7 @@
 title: Classes
 ---
     classDiagram
-
+    note "Sub namespace SchrodtSven\Phlox\Core\Statments\"
 Statement <|-- BlockStmt
 Statement <|-- FunctionStmt
 Statement <|-- ClassStmt
