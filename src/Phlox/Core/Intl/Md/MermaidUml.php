@@ -30,4 +30,6 @@ class MermaidUml
     public const string REL_DPD = '.>'; //	Dependency
     public const string REL_REA = '..|>'; //	Realization
     public const string REL_LNK = '..'; //	Link (Dashed)
+
+    
 }

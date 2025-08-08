@@ -15,5 +15,7 @@ namespace SchrodtSven\Phlox\Core\Intl\Md;
 
 class ClassDiagram
 {
-    private string $dgmTitle = 'ClassDiagramm'
+    private string $dgmTitle = 'ClassDiagramm';
+
+    
 }

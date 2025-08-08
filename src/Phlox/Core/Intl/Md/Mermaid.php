@@ -15,7 +15,7 @@ namespace SchrodtSven\Phlox\Core\Intl\Md;
 
 class Mermaid
 {
-    private const string DGM_TP ='[{!DiagramType!}]';
-    private const string DGM_TTE ='[{!DiagramTitle!}]';
+    private const string DGM_TP = '[{!DiagramType!}]';
+    private const string DGM_TTE = '[{!DiagramTitle!}]';
     private const string DGM_CONT = '[{!MainContent!}]';
 }
