@@ -19,6 +19,8 @@ use SchrodtSven\Phlox\Token;
 
 class FunctionStmt extends Statement
 {
+	private static string  $foo = "Fooo";
+
 	public function __construct(private Token $name, private array $parameters, private array $body) {}
 
 	public function accept(StmtVisitor $visitor)
