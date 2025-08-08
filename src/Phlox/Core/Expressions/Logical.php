@@ -14,16 +14,16 @@ declare(strict_types=1);
 namespace SchrodtSven\Phlox\Core\Expressions;
 
 use SchrodtSven\Phlox\Core\Expressions\Expression;
-use SchrodtSven\Phlox\Core\Token;
-use SchrodtSven\Phlox\Visitor;
+use SchrodtSven\Phlox\Token;
+use SchrodtSven\Phlox\ExprVisitor;
 
 class Logical extends Expression
 {
 	public function __construct(private Expression $left, private Token $operator, private Expression $right) {}
 
-	public function accept($visitor)
+	public function accept($ExprVisitor)
 	{
-		return $visitor->visitLogicalExpr($this);
+		return $ExprVisitor->visitLogicalExpr($this);
 	}
 
 	/**

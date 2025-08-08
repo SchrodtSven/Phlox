@@ -13,24 +13,25 @@ declare(strict_types=1);
 
 namespace SchrodtSven\Phlox\Core\Expressions;
 
+use Expr;
 use SchrodtSven\Phlox\Core\Expressions\Expression;
-use SchrodtSven\Phlox\Core\Token;
-use SchrodtSven\Phlox\Visitor;
+use SchrodtSven\Phlox\Token;
+use SchrodtSven\Phlox\ExprVisitor;
 
 class Binary extends Expression
 {
     public function __construct(private Expression $left, private Token $operator, private Expression $right) {}
 
-    public function accept(Visitor $visitor)
+    public function accept(ExprVisitor $ExprVisitor)
     {
-        return $visitor->visitBinaryExpression($this);
+        return $ExprVisitor->visitBinaryExpression($this);
     }
 
 
     /**
      * Get the value of left
      */
-    public function getLeft()
+    public function getLeft(): Expression
     {
         return $this->left;
     }
@@ -38,7 +39,7 @@ class Binary extends Expression
     /**
      * Set the value of left
      */
-    public function setLeft($left): self
+    public function setLeft(Expression $left): self
     {
         $this->left = $left;
 
@@ -48,7 +49,7 @@ class Binary extends Expression
     /**
      * Get the value of operator
      */
-    public function getOperator()
+    public function getOperator(): Token
     {
         return $this->operator;
     }
@@ -58,9 +59,27 @@ class Binary extends Expression
      *
      * @return  self
      */
-    public function setOperator($operator)
+    public function setOperator(Token $operator)
     {
         $this->operator = $operator;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of right
+     */
+    public function getRight(): Expression
+    {
+        return $this->right;
+    }
+
+    /**
+     * Set the value of right
+     */
+    public function setRight(Expression $right): self
+    {
+        $this->right = $right;
 
         return $this;
     }

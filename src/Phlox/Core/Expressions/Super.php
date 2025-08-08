@@ -13,17 +13,17 @@ declare(strict_types=1);
 
 namespace SchrodtSven\Phlox\Core\Expressions;
 use SchrodtSven\Phlox\Core\Expressions\Expression;
-use SchrodtSven\Phlox\Core\Token;
-use SchrodtSven\Phlox\Visitor;
+use SchrodtSven\Phlox\Token;
+use SchrodtSven\Phlox\ExprVisitor;
 
 class Super extends Expression
 {
     public function __construct(private Token $keyword, private Token $method)
 	{}
 
-	public function accept(Visitor $visitor)
+	public function accept(ExprVisitor $ExprVisitor)
 	{
-		return $visitor->visitSuperExpression($this);
+		return $ExprVisitor->visitSuperExpression($this);
 	}
 
     /**

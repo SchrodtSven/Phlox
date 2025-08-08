@@ -13,24 +13,24 @@ declare(strict_types=1);
 
 namespace SchrodtSven\Phlox\Core\Expressions;
 use SchrodtSven\Phlox\Core\Expressions\Expression;
-use SchrodtSven\Phlox\Core\Token;
-use SchrodtSven\Phlox\Visitor;
+use SchrodtSven\Phlox\Token;
+use SchrodtSven\Phlox\ExprVisitor;
 
 class Assign extends Expression
 {
 	public function __construct(private Token $name, private Expression $value)
 	{}
 
-	public function accept(Visitor $visitor)
+	public function accept(ExprVisitor $ExprVisitor)
 	{
-		return $visitor->visitAssignExpression($this);
+		return $ExprVisitor->visitAssignExpression($this);
 	}
 
 
 	/**
 	 * Get the value of name
 	 */
-	public function getName()
+	public function getName(): Token
 	{
 		return $this->name;
 	}
@@ -38,7 +38,7 @@ class Assign extends Expression
 	/**
 	 * Set the value of name
 	 */
-	public function setName($name): self
+	public function setName(Token $name): self
 	{
 		$this->name = $name;
 
@@ -48,7 +48,7 @@ class Assign extends Expression
 	/**
 	 * Get the value of value
 	 */
-	public function getValue()
+	public function getValue(): Expression
 	{
 		return $this->value;
 	}
@@ -56,7 +56,7 @@ class Assign extends Expression
 	/**
 	 * Set the value of value
 	 */
-	public function setValue($value): self
+	public function setValue(Expression $value): self
 	{
 		$this->value = $value;
 

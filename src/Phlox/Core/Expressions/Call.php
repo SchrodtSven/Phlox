@@ -13,17 +13,17 @@ declare(strict_types=1);
 
 namespace SchrodtSven\Phlox\Core\Expressions;
 
-use SchrodtSven\Phlox\Visitor;
-use SchrodtSven\Phlox\Core\Token;
+use SchrodtSven\Phlox\ExprVisitor;
+use SchrodtSven\Phlox\Token;
 use SchrodtSven\Phlox\Core\Expressions\Expression;
 
 class Call extends Expression
 {
 	public function __construct(private Expression $callee, private  Token $parent, private array $arguments) {}
 
-	public function accept(Visitor $visitor)
+	public function accept(ExprVisitor $ExprVisitor)
 	{
-		return $visitor->visitCallExpression($this);
+		return $ExprVisitor->visitCallExpression($this);
 	}
 
 	/**

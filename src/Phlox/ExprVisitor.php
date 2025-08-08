@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 /**
- * Visitor interface 
+ * Expression Visitor interface 
  * 
  * @author Sven Schrodt<sven@schrodt.club>
  * @link https://github.com/SchrodtSven/Phlox
@@ -27,7 +27,7 @@ use SchrodtSven\Phlox\Core\Expressions\This;
 use SchrodtSven\Phlox\Core\Expressions\Unary;
 use SchrodtSven\Phlox\Core\Expressions\Variable;
 
-interface Visitor
+interface ExprVisitor
 {
 	public function visitAssignExpression(Assign $expr);
 	public function visitBinaryExpression(Binary $expr);

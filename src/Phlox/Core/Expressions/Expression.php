@@ -12,9 +12,9 @@ declare(strict_types=1);
  */
 
 namespace SchrodtSven\Phlox\Core\Expressions;
-use SchrodtSven\Phlox\Visitor;
+use SchrodtSven\Phlox\ExprVisitor;
 
 abstract class Expression
 {
-	abstract public function accept(Visitor $visitor); //@todo adding type hint for Visitor
+	abstract public function accept(ExprVisitor $ExprVisitor); //@todo adding type hint for ExprVisitor
 }

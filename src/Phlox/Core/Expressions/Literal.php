@@ -14,16 +14,16 @@ declare(strict_types=1);
 namespace SchrodtSven\Phlox\Core\Expressions;
 
 use SchrodtSven\Phlox\Core\Expressions\Expression;
-use SchrodtSven\Phlox\Core\Token;
-use SchrodtSven\Phlox\Visitor;
+use SchrodtSven\Phlox\Token;
+use SchrodtSven\Phlox\ExprVisitor;
 
 class Literal extends Expression
 {
 	public function __construct(private mixed $value) {}
 
-	public function accept(Visitor $visitor)
+	public function accept(ExprVisitor $ExprVisitor)
 	{
-		return $visitor->visitLiteralExpression($this);
+		return $ExprVisitor->visitLiteralExpression($this);
 	}
 
 

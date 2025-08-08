@@ -14,16 +14,16 @@ declare(strict_types=1);
 namespace SchrodtSven\Phlox\Core\Expressions;
 
 use SchrodtSven\Phlox\Core\Expressions\Expression;
-use SchrodtSven\Phlox\Core\Token;
-use SchrodtSven\Phlox\Visitor;
+use SchrodtSven\Phlox\Token;
+use SchrodtSven\Phlox\ExprVisitor;
 
 class Set extends Expression
 {
 	public function __construct(private Expression $object, private Token $name, private Expression $value)
 	{}
 
-	public function accept(Visitor $visitor)
+	public function accept(ExprVisitor $ExprVisitor)
 	{
-		return $visitor->visitSetExpression($this);
+		return $ExprVisitor->visitSetExpression($this);
 	}
 }

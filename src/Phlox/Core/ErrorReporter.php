@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 /**
- * Entity class for token(s)
+ * Error reporting class
  * 
  * @author Sven Schrodt<sven@schrodt.club>
  * @link https://github.com/SchrodtSven/Phlox

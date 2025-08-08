@@ -15,3 +15,4 @@ tmp/
 grube*
 .DS_Store
 legacy/
+foo*

@@ -17,6 +17,7 @@ namespace SchrodtSven\Phlox\Core;
 use SchrodtSven\Phlox\Token;
 use SchrodtSven\Phlox\TokenType;
 use SchrodtSven\Phlox\Core\ErrorReporter;
+
 class Scanner
 {
 	private array $tokens = [];
@@ -35,45 +36,70 @@ class Scanner
 		'nil'	=> TokenType::TKN_NIL,
 		'or'	=> TokenType::TKN_OR,
 		'print'	=> TokenType::TKN_PRINT,
-		'return'=> TokenType::TKN_RETURN,
+		'return' => TokenType::TKN_RETURN,
 		'super'	=> TokenType::TKN_SUPER,
 		'this'	=> TokenType::TKN_THIS,
 		'true'	=> TokenType::TKN_TRUE,
 		'var'	=> TokenType::TKN_VAR,
 		'while' => TokenType::TKN_WHILE
 	];
-   
-    public function __construct(private string $source) {}
+
+	public function __construct(private string $source) {}
 
 
-    private function scanToken()
+	private function scanToken()
 	{
 		$c = $this->advance();
 		switch ($c) {
-			case '(': $this->addToken(TokenType::TKN_LEFT_PAREN); break;
-			case ')': $this->addToken(TokenType::TKN_RIGHT_PAREN); break;
-			case '{': $this->addToken(TokenType::TKN_LEFT_BRACE); break;
-			case '}': $this->addToken(TokenType::TKN_RIGHT_BRACE); break;
-			case ',': $this->addToken(TokenType::TKN_COMMA); break;
-			case '.': $this->addToken(TokenType::TKN_DOT); break;
-			case '-': $this->addToken(TokenType::TKN_MINUS); break;
-			case '+': $this->addToken(TokenType::TKN_PLUS); break;
-			case ';': $this->addToken(TokenType::TKN_SEMICOLON); break;
-			case '*': $this->addToken(TokenType::TKN_STAR); break;
+			case '(':
+				$this->addToken(TokenType::TKN_LEFT_PAREN);
+				break;
+			case ')':
+				$this->addToken(TokenType::TKN_RIGHT_PAREN);
+				break;
+			case '{':
+				$this->addToken(TokenType::TKN_LEFT_BRACE);
+				break;
+			case '}':
+				$this->addToken(TokenType::TKN_RIGHT_BRACE);
+				break;
+			case ',':
+				$this->addToken(TokenType::TKN_COMMA);
+				break;
+			case '.':
+				$this->addToken(TokenType::TKN_DOT);
+				break;
+			case '-':
+				$this->addToken(TokenType::TKN_MINUS);
+				break;
+			case '+':
+				$this->addToken(TokenType::TKN_PLUS);
+				break;
+			case ';':
+				$this->addToken(TokenType::TKN_SEMICOLON);
+				break;
+			case '*':
+				$this->addToken(TokenType::TKN_STAR);
+				break;
 
-			case '!': $this->addToken($this->match('=') ? TokenType::TKN_BANG_EQUAL : TokenType::TKN_BANG); break;
-			case '=': $this->addToken($this->match('=') ? TokenType::TKN_EQUAL_EQUAL : TokenType::TKN_EQUAL); break;
-			case '<': $this->addToken($this->match('=') ? TokenType::TKN_LESS_EQUAL : TokenType::TKN_LESS); break;
-			case '>': $this->addToken($this->match('=') ? TokenType::TKN_GREATER_EQUAL : TokenType::TKN_GREATER); break;
+			case '!':
+				$this->addToken($this->match('=') ? TokenType::TKN_BANG_EQUAL : TokenType::TKN_BANG);
+				break;
+			case '=':
+				$this->addToken($this->match('=') ? TokenType::TKN_EQUAL_EQUAL : TokenType::TKN_EQUAL);
+				break;
+			case '<':
+				$this->addToken($this->match('=') ? TokenType::TKN_LESS_EQUAL : TokenType::TKN_LESS);
+				break;
+			case '>':
+				$this->addToken($this->match('=') ? TokenType::TKN_GREATER_EQUAL : TokenType::TKN_GREATER);
+				break;
 
 			case '/':
-				if ($this->match('/'))
-				{
+				if ($this->match('/')) {
 					// A comment goes until the end of the line.
 					while ($this->peek() != "\n" && !$this->isAtEnd()) $this->advance();
-				}
-				else
-				{
+				} else {
 					$this->addToken(TokenType::TKN_SLASH);
 				}
 				break;
@@ -88,19 +114,16 @@ class Scanner
 				$this->line++;
 				break;
 
-			case '"': $this->string(); break;
+			case '"':
+				$this->string();
+				break;
 
 			default:
-				if ($this->isDigit($c))
-				{
+				if ($this->isDigit($c)) {
 					$this->number();
-				}
-				else if ($this->isAlpha($c))
-				{
+				} else if ($this->isAlpha($c)) {
 					$this->identifier();
-				}
-				else
-				{
+				} else {
 					ErrorReporter::error($this->line, "Unexpected character '$c'.");
 				}
 		}
@@ -118,7 +141,8 @@ class Scanner
 		$this->tokens[] = new Token($type, $literal, $this->line);
 	}
 
-	private function match($expected) {
+	private function match($expected)
+	{
 		if ($this->isAtEnd()) return false;
 		if ($this->source[$this->current] != $expected) return false;
 
@@ -126,22 +150,21 @@ class Scanner
 		return true;
 	}
 
-	private function peek() {
+	private function peek()
+	{
 		if ($this->isAtEnd()) return '\0';
 		return $this->source[$this->current];
 	}
 
 	private function string()
 	{
-		while ($this->peek() != '"' && !$this->isAtEnd())
-		{
+		while ($this->peek() != '"' && !$this->isAtEnd()) {
 			if ($this->peek() == '\n') $this->line++;
 			$this->advance();
 		}
 
 		// Unterminated string.
-		if ($this->isAtEnd())
-		{
+		if ($this->isAtEnd()) {
 			ErrorReporter::error($this->line, "Unterminated string.");
 			return;
 		}
@@ -164,8 +187,7 @@ class Scanner
 		while ($this->isDigit($this->peek())) $this->advance();
 
 		// Look for a fractional part.
-		if ($this->peek() == '.' && $this->isDigit($this->peekNext()))
-		{
+		if ($this->peek() == '.' && $this->isDigit($this->peekNext())) {
 			// Consume the "."
 			$this->advance();
 
@@ -187,8 +209,7 @@ class Scanner
 
 		$type = TokenType::TKN_IDENTIFIER;
 		$str = substr($this->source, $this->start, $this->current - $this->start);
-		if (isset(self::$keywords[$str]))
-		{
+		if (isset(self::$keywords[$str])) {
 			$type = self::$keywords[$str];
 		}
 
@@ -205,10 +226,9 @@ class Scanner
 		return $this->isAlpha($c) || $this->isDigit($c);
 	}
 
-    	public function scanTokens()
+	public function scanTokens()
 	{
-		while (!$this->isAtEnd())
-		{
+		while (!$this->isAtEnd()) {
 			$this->start = $this->current;
 			$this->scanToken();
 		}
