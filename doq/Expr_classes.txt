@@ -1,0 +1,111 @@
+class SchrodtSven\Phlox\Core\Expressions\Expression {
+	 +accept()
+}
+class SchrodtSven\Phlox\Core\Expressions\Variable {
+	 +name
+	 +__construct()
+	 +accept()
+}
+class SchrodtSven\Phlox\Core\Expressions\Literal {
+	 +value
+	 +__construct()
+	 +accept()
+	 +getValue()
+	 +setValue()
+}
+class SchrodtSven\Phlox\Core\Expressions\Get {
+	 +object
+	 +name
+	 +__construct()
+	 +accept()
+	 +getObject()
+	 +setObject()
+	 +getName()
+	 +setName()
+}
+class SchrodtSven\Phlox\Core\Expressions\Logical {
+	 +left
+	 +operator
+	 +right
+	 +__construct()
+	 +accept()
+	 +getLeft()
+	 +setLeft()
+	 +getOperator()
+	 +setOperator()
+	 +getRight()
+	 +setRight()
+}
+class SchrodtSven\Phlox\Core\Expressions\Grouping {
+	 +expression
+	 +__construct()
+	 +accept()
+	 +getExpression()
+	 +setExpression()
+}
+class SchrodtSven\Phlox\Core\Expressions\Super {
+	 +keyword
+	 +method
+	 +__construct()
+	 +accept()
+	 +getKeyword()
+	 +setKeyword()
+	 +getMethod()
+	 +setMethod()
+}
+class SchrodtSven\Phlox\Core\Expressions\Set {
+	 +object
+	 +name
+	 +value
+	 +__construct()
+	 +accept()
+}
+class SchrodtSven\Phlox\Core\Expressions\Assign {
+	 +name
+	 +value
+	 +__construct()
+	 +accept()
+	 +getName()
+	 +setName()
+	 +getValue()
+	 +setValue()
+}
+class SchrodtSven\Phlox\Core\Expressions\Unary {
+	 +operator
+	 +right
+	 +__construct()
+	 +accept()
+}
+class SchrodtSven\Phlox\Core\Expressions\Binary {
+	 +left
+	 +operator
+	 +right
+	 +__construct()
+	 +accept()
+	 +getLeft()
+	 +setLeft()
+	 +getOperator()
+	 +setOperator()
+	 +getRight()
+	 +setRight()
+}
+class SchrodtSven\Phlox\Core\Expressions\Call {
+	 +callee
+	 +parent
+	 +arguments
+	 +__construct()
+	 +accept()
+	 +getCallee()
+	 +setCallee()
+	 +getParent()
+	 +setParent()
+	 +getArguments()
+	 +setArguments()
+}
+class SchrodtSven\Phlox\Core\Expressions\This {
+	 +keyword
+	 +__construct()
+	 +accept()
+	 +getKeyword()
+	 +setKeyword()
+}

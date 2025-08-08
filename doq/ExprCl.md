@@ -1,0 +1,111 @@
+```mermaid
+---
+title: Classes
+---
+    classDiagram
+
+Statement <|-- BlockStmt
+Statement <|-- FunctionStmt
+Statement <|-- ClassStmt
+Statement <|-- VarStmt
+Statement <|-- WhileStmt
+Statement <|-- Statement
+Statement <|-- PrintStmt
+Statement <|-- IfStmt
+Statement <|-- ExpressionStmt
+Statement <|-- ReturnStmt
+
+class ReturnStmt {
+	 +keyword
+	 +value
+	 +__construct()
+	 +accept()
+	 +getKeyword()
+	 +setKeyword()
+	 +getValue()
+	 +setValue()
+}
+class BlockStmt {
+	 +statements
+	 +__construct()
+	 +accept()
+	 +getStatements()
+	 +setStatements()
+}
+class FunctionStmt {
+	 +name
+	 +parameters
+	 +body
+	 +__construct()
+	 +accept()
+	 +getName()
+	 +setName()
+	 +getParameters()
+	 +setParameters()
+	 +getBody()
+	 +setBody()
+}
+class ClassStmt {
+	 +name
+	 +superclass
+	 +methods
+	 +__construct()
+	 +accept()
+	 +getName()
+	 +setName()
+	 +getSuperclass()
+	 +setSuperclass()
+	 +getMethods()
+	 +setMethods()
+}
+class VarStmt {
+	 +name
+	 +initializer
+	 +__construct()
+	 +accept()
+	 +getName()
+	 +setName()
+	 +getInitializer()
+	 +setInitializer()
+}
+class WhileStmt {
+	 +condition
+	 +body
+	 +__construct()
+	 +accept()
+	 +getCondition()
+	 +setCondition()
+	 +getBody()
+	 +setBody()
+}
+
+class PrintStmt {
+	 +expression
+	 +__construct()
+	 +accept()
+	 +getExpression()
+	 +setExpression()
+}
+class IfStmt {
+	 +condition
+	 +thenBranch
+	 +elseBranch
+	 +__construct()
+	 +accept()
+	 +getCondition()
+	 +setCondition()
+	 +getThenBranch()
+	 +setThenBranch()
+	 +getElseBranch()
+	 +setElseBranch()
+}
+class ExpressionStmt {
+	 +expression
+	 +__construct()
+	 +getExpression()
+	 +setExpression()
+}
+
+
+
+```

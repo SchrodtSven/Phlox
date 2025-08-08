@@ -1,0 +1,135 @@
+```mermaid
+---
+title: Classes
+---
+    classDiagram
+
+    Expression <|-- Variable
+    Expression <|-- Literal
+    Expression <|-- Get
+    Expression <|-- Logical
+    Expression <|-- Grouping
+    Expression <|-- Super
+    Expression <|-- Set
+    Expression <|-- Assign
+    Expression <|-- Unary
+    Expression <|-- Binary
+    Expression <|-- Call
+    Expression <|-- This
+
+
+        note "Sub namespace SchrodtSven\Phlox\Core\Statments\"
+
+    class Expression {
+        +accept()
+    }
+    class Variable {
+        +name
+        +__construct()
+        +accept()
+    }
+    class Literal {
+        +value
+        +__construct()
+        +accept()
+        +getValue()
+        +setValue()
+    }
+    class Get {
+        +object
+        +name
+        +__construct()
+        +accept()
+        +getObject()
+        +setObject()
+        +getName()
+        +setName()
+    }
+    class Logical {
+        +left
+        +operator
+        +right
+        +__construct()
+        +accept()
+        +getLeft()
+        +setLeft()
+        +getOperator()
+        +setOperator()
+        +getRight()
+        +setRight()
+    }
+    class Grouping {
+        +expression
+        +__construct()
+        +accept()
+        +getExpression()
+        +setExpression()
+    }
+    class Super {
+        +keyword
+        +method
+        +__construct()
+        +accept()
+        +getKeyword()
+        +setKeyword()
+        +getMethod()
+        +setMethod()
+    }
+    class Set {
+        +object
+        +name
+        +value
+        +__construct()
+        +accept()
+    }
+    class Assign {
+        +name
+        +value
+        +__construct()
+        +accept()
+        +getName()
+        +setName()
+        +getValue()
+        +setValue()
+    }
+    class Unary {
+        +operator
+        +right
+        +__construct()
+        +accept()
+    }
+    class Binary {
+        +left
+        +operator
+        +right
+        +__construct()
+        +accept()
+        +getLeft()
+        +setLeft()
+        +getOperator()
+        +setOperator()
+        +getRight()
+        +setRight()
+    }
+    class Call {
+        +callee
+        +parent
+        +arguments
+        +__construct()
+        +accept()
+        +getCallee()
+        +setCallee()
+        +getParent()
+        +setParent()
+        +getArguments()
+        +setArguments()
+    }
+    class This {
+        +keyword
+        +__construct()
+        +accept()
+        +getKeyword()
+        +setKeyword()
+    }
+
+```
