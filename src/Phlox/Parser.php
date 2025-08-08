@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 
 namespace SchrodtSven\Phlox;
-use SchrodtSven\Phlox\TokenType;
-
+use SchrodtSven\Phlox\Core\TokenType;
+use SchrodtSven\Phlox\Core\Token;
 use SchrodtSven\Phlox\Core\Expressions\Assign;
 use SchrodtSven\Phlox\Core\Expressions\Binary;
 use SchrodtSven\Phlox\Core\Expressions\Call;

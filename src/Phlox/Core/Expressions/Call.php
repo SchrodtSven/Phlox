@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace SchrodtSven\Phlox\Core\Expressions;
 
 use SchrodtSven\Phlox\ExprVisitor;
-use SchrodtSven\Phlox\Token;
+use SchrodtSven\Phlox\Core\Token;
 use SchrodtSven\Phlox\Core\Expressions\Expression;
 
 class Call extends Expression

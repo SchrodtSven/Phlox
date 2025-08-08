@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace SchrodtSven\Phlox\Core\Expressions;
 
 use SchrodtSven\Phlox\Core\Expressions\Expression;
-use SchrodtSven\Phlox\Token;
+use SchrodtSven\Phlox\Core\Token;
 use SchrodtSven\Phlox\ExprVisitor;
 
 class Variable extends Expression
@@ -27,5 +27,23 @@ class Variable extends Expression
 	public function accept(ExprVisitor $ExprVisitor)
 	{
 		return $ExprVisitor->visitVariableExpression($this);
+	}
+
+	/**
+	 * Get the value of name
+	 */
+	public function getName(): Token
+	{
+		return $this->name;
+	}
+
+	/**
+	 * Set the value of name
+	 */
+	public function setName(Token$name): self
+	{
+		$this->name = $name;
+
+		return $this;
 	}
 }

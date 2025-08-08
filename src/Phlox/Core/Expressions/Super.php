@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace SchrodtSven\Phlox\Core\Expressions;
 use SchrodtSven\Phlox\Core\Expressions\Expression;
-use SchrodtSven\Phlox\Token;
+use SchrodtSven\Phlox\Core\Token;
 use SchrodtSven\Phlox\ExprVisitor;
 
 class Super extends Expression

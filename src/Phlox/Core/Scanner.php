@@ -2,30 +2,57 @@
 
 declare(strict_types=1);
 /**
- * Scanner class
+ * The main scanner (aka lexer) class
  * 
  * @author Sven Schrodt<sven@schrodt.club>
  * @link https://github.com/SchrodtSven/Phlox
  * @package Phlox
  * @version 0.1
- * @since 2025-08-06
+ * @since 2025-08-08
  */
 
 
 namespace SchrodtSven\Phlox\Core;
-
-use SchrodtSven\Phlox\Token;
-use SchrodtSven\Phlox\TokenType;
+use SchrodtSven\Phlox\Core\TokenType;
 use SchrodtSven\Phlox\Core\ErrorReporter;
+use SchrodtSven\Phlox\Core\Token;
+
+use SchrodtSven\Phlox\Core\Expressions\Assign;
+use SchrodtSven\Phlox\Core\Expressions\Binary;
+use SchrodtSven\Phlox\Core\Expressions\Call;
+use SchrodtSven\Phlox\Core\Expressions\Expression;
+use SchrodtSven\Phlox\Core\Expressions\Get;
+use SchrodtSven\Phlox\Core\Expressions\Grouping;
+use SchrodtSven\Phlox\Core\Expressions\Literal;
+use SchrodtSven\Phlox\Core\Expressions\Logical;
+use SchrodtSven\Phlox\Core\Expressions\Set;
+use SchrodtSven\Phlox\Core\Expressions\Super;
+use SchrodtSven\Phlox\Core\Expressions\This;
+use SchrodtSven\Phlox\Core\Expressions\Unary;
+use SchrodtSven\Phlox\Core\Expressions\Variable;
+
+
+use SchrodtSven\Phlox\Core\Statements\BlockStmt;
+use SchrodtSven\Phlox\Core\Statements\ClassStmt;
+use SchrodtSven\Phlox\Core\Statements\ExpressionStmt;
+use SchrodtSven\Phlox\Core\Statements\FunctionStmt;
+use SchrodtSven\Phlox\Core\Statements\IfStmt;
+use SchrodtSven\Phlox\Core\Statements\PrintStmt;
+use SchrodtSven\Phlox\Core\Statements\ReturnStmt;
+use SchrodtSven\Phlox\Core\Statements\Statement;
+use SchrodtSven\Phlox\Core\Statements\VarStmt;
+use SchrodtSven\Phlox\Core\Statements\WhileStmt;
+
 
 class Scanner
 {
-	private array $tokens = [];
-	private int $start = 0;
-	private int $current = 0;
-	private int $line = 1;
+	private $source;
+	private $tokens = [];
+	private $start = 0;
+	private $current = 0;
+	private $line = 1;
 
-	private static $keywords = [
+	private static array $keywords = [
 		'and'	=> TokenType::TKN_AND,
 		'class'	=> TokenType::TKN_CLASS,
 		'else'	=> TokenType::TKN_ELSE,
@@ -36,7 +63,7 @@ class Scanner
 		'nil'	=> TokenType::TKN_NIL,
 		'or'	=> TokenType::TKN_OR,
 		'print'	=> TokenType::TKN_PRINT,
-		'return' => TokenType::TKN_RETURN,
+		'return'=> TokenType::TKN_RETURN,
 		'super'	=> TokenType::TKN_SUPER,
 		'this'	=> TokenType::TKN_THIS,
 		'true'	=> TokenType::TKN_TRUE,
@@ -44,62 +71,57 @@ class Scanner
 		'while' => TokenType::TKN_WHILE
 	];
 
-	public function __construct(private string $source) {}
+	public function __construct($source)
+	{
+		$this->source = $source;
+	}
 
+	public function scanTokens()
+	{
+		while (!$this->isAtEnd())
+		{
+			$this->start = $this->current;
+			$this->scanToken();
+		}
+
+		$this->tokens[] = new Token(TokenType::TKN_EOF, null, $this->line);
+
+		return $this->tokens;
+	}
+
+	private function isAtEnd()
+	{
+		return $this->current >= strlen($this->source);
+	}
 
 	private function scanToken()
 	{
 		$c = $this->advance();
 		switch ($c) {
-			case '(':
-				$this->addToken(TokenType::TKN_LEFT_PAREN);
-				break;
-			case ')':
-				$this->addToken(TokenType::TKN_RIGHT_PAREN);
-				break;
-			case '{':
-				$this->addToken(TokenType::TKN_LEFT_BRACE);
-				break;
-			case '}':
-				$this->addToken(TokenType::TKN_RIGHT_BRACE);
-				break;
-			case ',':
-				$this->addToken(TokenType::TKN_COMMA);
-				break;
-			case '.':
-				$this->addToken(TokenType::TKN_DOT);
-				break;
-			case '-':
-				$this->addToken(TokenType::TKN_MINUS);
-				break;
-			case '+':
-				$this->addToken(TokenType::TKN_PLUS);
-				break;
-			case ';':
-				$this->addToken(TokenType::TKN_SEMICOLON);
-				break;
-			case '*':
-				$this->addToken(TokenType::TKN_STAR);
-				break;
+			case '(': $this->addToken(TokenType::TKN_LEFT_PAREN); break;
+			case ')': $this->addToken(TokenType::TKN_RIGHT_PAREN); break;
+			case '{': $this->addToken(TokenType::TKN_LEFT_BRACE); break;
+			case '}': $this->addToken(TokenType::TKN_RIGHT_BRACE); break;
+			case ',': $this->addToken(TokenType::TKN_COMMA); break;
+			case '.': $this->addToken(TokenType::TKN_DOT); break;
+			case '-': $this->addToken(TokenType::TKN_MINUS); break;
+			case '+': $this->addToken(TokenType::TKN_PLUS); break;
+			case ';': $this->addToken(TokenType::TKN_SEMICOLON); break;
+			case '*': $this->addToken(TokenType::TKN_STAR); break;
 
-			case '!':
-				$this->addToken($this->match('=') ? TokenType::TKN_BANG_EQUAL : TokenType::TKN_BANG);
-				break;
-			case '=':
-				$this->addToken($this->match('=') ? TokenType::TKN_EQUAL_EQUAL : TokenType::TKN_EQUAL);
-				break;
-			case '<':
-				$this->addToken($this->match('=') ? TokenType::TKN_LESS_EQUAL : TokenType::TKN_LESS);
-				break;
-			case '>':
-				$this->addToken($this->match('=') ? TokenType::TKN_GREATER_EQUAL : TokenType::TKN_GREATER);
-				break;
+			case '!': $this->addToken($this->match('=') ? TokenType::TKN_BANG_EQUAL : TokenType::TKN_BANG); break;
+			case '=': $this->addToken($this->match('=') ? TokenType::TKN_EQUAL_EQUAL : TokenType::TKN_EQUAL); break;
+			case '<': $this->addToken($this->match('=') ? TokenType::TKN_LESS_EQUAL : TokenType::TKN_LESS); break;
+			case '>': $this->addToken($this->match('=') ? TokenType::TKN_GREATER_EQUAL : TokenType::TKN_GREATER); break;
 
 			case '/':
-				if ($this->match('/')) {
+				if ($this->match('/'))
+				{
 					// A comment goes until the end of the line.
 					while ($this->peek() != "\n" && !$this->isAtEnd()) $this->advance();
-				} else {
+				}
+				else
+				{
 					$this->addToken(TokenType::TKN_SLASH);
 				}
 				break;
@@ -114,16 +136,19 @@ class Scanner
 				$this->line++;
 				break;
 
-			case '"':
-				$this->string();
-				break;
+			case '"': $this->string(); break;
 
 			default:
-				if ($this->isDigit($c)) {
+				if ($this->isDigit($c))
+				{
 					$this->number();
-				} else if ($this->isAlpha($c)) {
+				}
+				else if ($this->isAlpha($c))
+				{
 					$this->identifier();
-				} else {
+				}
+				else
+				{
 					ErrorReporter::error($this->line, "Unexpected character '$c'.");
 				}
 		}
@@ -135,14 +160,13 @@ class Scanner
 		return $this->source[$this->current - 1];
 	}
 
-	private function addToken($type, $literal = null)
+	private function addToken(TokenType $type, $literal = null)
 	{
-		if ($literal === null) $literal = (string)$type;
+		if ($literal === null) $literal = $type;
 		$this->tokens[] = new Token($type, $literal, $this->line);
 	}
 
-	private function match($expected)
-	{
+	private function match($expected) {
 		if ($this->isAtEnd()) return false;
 		if ($this->source[$this->current] != $expected) return false;
 
@@ -150,21 +174,22 @@ class Scanner
 		return true;
 	}
 
-	private function peek()
-	{
+	private function peek() {
 		if ($this->isAtEnd()) return '\0';
 		return $this->source[$this->current];
 	}
 
 	private function string()
 	{
-		while ($this->peek() != '"' && !$this->isAtEnd()) {
+		while ($this->peek() != '"' && !$this->isAtEnd())
+		{
 			if ($this->peek() == '\n') $this->line++;
 			$this->advance();
 		}
 
 		// Unterminated string.
-		if ($this->isAtEnd()) {
+		if ($this->isAtEnd())
+		{
 			ErrorReporter::error($this->line, "Unterminated string.");
 			return;
 		}
@@ -187,7 +212,8 @@ class Scanner
 		while ($this->isDigit($this->peek())) $this->advance();
 
 		// Look for a fractional part.
-		if ($this->peek() == '.' && $this->isDigit($this->peekNext())) {
+		if ($this->peek() == '.' && $this->isDigit($this->peekNext()))
+		{
 			// Consume the "."
 			$this->advance();
 
@@ -209,7 +235,8 @@ class Scanner
 
 		$type = TokenType::TKN_IDENTIFIER;
 		$str = substr($this->source, $this->start, $this->current - $this->start);
-		if (isset(self::$keywords[$str])) {
+		if (isset(self::$keywords[$str]))
+		{
 			$type = self::$keywords[$str];
 		}
 
@@ -224,22 +251,5 @@ class Scanner
 	private function isAlphaNumeric($c)
 	{
 		return $this->isAlpha($c) || $this->isDigit($c);
-	}
-
-	public function scanTokens()
-	{
-		while (!$this->isAtEnd()) {
-			$this->start = $this->current;
-			$this->scanToken();
-		}
-
-		$this->tokens[] = new Token(null, TokenType::TKN_EOF,  $this->line);
-
-		return $this->tokens;
-	}
-
-	private function isAtEnd()
-	{
-		return $this->current >= strlen($this->source);
 	}
 }

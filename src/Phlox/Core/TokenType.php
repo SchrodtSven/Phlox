@@ -12,7 +12,7 @@ declare(strict_types=1);
  */
 
 
-namespace SchrodtSven\Phlox;
+namespace SchrodtSven\Phlox\Core;
 
 enum TokenType: string
 {

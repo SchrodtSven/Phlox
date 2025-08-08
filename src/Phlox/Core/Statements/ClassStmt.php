@@ -16,7 +16,7 @@ namespace SchrodtSven\Phlox\Core\Statements;
 use SchrodtSven\Phlox\Core\Statements\Statement;
 use SchrodtSven\Phlox\StmtVisitor;
 use SchrodtSven\Phlox\Core\Expressions\Variable;
-use SchrodtSven\Phlox\Token;
+use SchrodtSven\Phlox\Core\Token;
 
 class ClassStmt extends Statement
 {

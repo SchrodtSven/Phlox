@@ -12,9 +12,9 @@ declare(strict_types=1);
  */
 
 
-namespace SchrodtSven\Phlox;
+namespace SchrodtSven\Phlox\Core;
 
-use SchrodtSven\Phlox\TokenType;
+use SchrodtSven\Phlox\Core\TokenType;
 
 class Token
 {
@@ -23,8 +23,8 @@ class Token
      * Constructor function - just setting private attributes
      */
     public function __construct(
-        private ?string $literal = null,
-        private TokenType $type = TokenType::TKN_EOF,
+        private string|TokenType|null $literal = null,
+        private mixed  $type = TokenType::TKN_EOF,
         private int $line = 0
     ) {}
 
